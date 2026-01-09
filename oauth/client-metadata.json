@@ -1,8 +1,8 @@
 {
-  "client_id": "https://YOUR_GITHUB_USERNAME.github.io/skypad-oauth/oauth/client-metadata.json",
+  "client_id": "https://originalgenlabs-max.github.io/skypad-oauth/oauth/client-metadata.json",
   "application_type": "native",
   "client_name": "SkyPad",
-  "client_uri": "https://YOUR_GITHUB_USERNAME.github.io/skypad-oauth",
+  "client_uri": "https://originalgenlabs-max.github.io/skypad-oauth",
   "dpop_bound_access_tokens": true,
   "grant_types": ["authorization_code", "refresh_token"],
   "redirect_uris": ["skypad://oauth/callback"],
