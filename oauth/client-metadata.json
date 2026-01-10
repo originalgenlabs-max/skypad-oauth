@@ -8,7 +8,7 @@
     "authorization_code",
     "refresh_token"
   ],
- "redirect_uris": ["http://127.0.0.1:31337/callback"],
+ "redirect_uris": ["skypad://oauth/callback"],
   "response_types": [
     "code"
   ],
