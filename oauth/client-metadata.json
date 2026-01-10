@@ -8,7 +8,8 @@
     "authorization_code",
     "refresh_token"
   ],
- "redirect_uris": ["skypad://oauth/callback"],
+ ""redirect_uris": [
+  "https://originalgenlabs-max.github.io/skypad-oauth/oauth/callback/"],
   "response_types": [
     "code"
   ],
