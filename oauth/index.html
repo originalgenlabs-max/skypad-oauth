@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkyPad OAuth Callback</title>
+</head>
+<body>
+  <p>Redirecting back to SkyPad…</p>
+
+  <script>
+    const params = window.location.search || "";
+    const deepLink = "skypad://oauth/callback" + params;
+
+    // iOS app'e geri dön
+    window.location.replace(deepLink);
+
+    // Fallback
+    setTimeout(() => {
+      document.body.innerHTML =
+        "<h3>Return to SkyPad</h3>" +
+        "<p>If the app did not open automatically, please return to SkyPad.</p>";
+    }, 1200);
+  </script>
+</body>
+</html>
