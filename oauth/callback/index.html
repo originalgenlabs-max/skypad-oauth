@@ -4,23 +4,53 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SkyPad OAuth Callback</title>
+  <style>
+    body { font-family: -apple-system, system-ui, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; line-height: 1.4; }
+    .box { max-width: 720px; margin: 0 auto; }
+    code { background: #f2f2f2; padding: 2px 6px; border-radius: 6px; word-break: break-all; }
+    a.button { display: inline-block; margin-top: 12px; padding: 12px 14px; border-radius: 10px; background: #111; color: #fff; text-decoration: none; }
+    .muted { color: #666; font-size: 14px; }
+  </style>
 </head>
 <body>
-  <p>Redirecting back to SkyPad…</p>
+  <div class="box">
+    <h3>Returning to SkyPad…</h3>
+    <p class="muted">If nothing happens, use the button below.</p>
+
+    <div id="fallback" style="display:none;">
+      <p><a id="openBtn" class="button" href="#">Open SkyPad</a></p>
+      <p class="muted">Deep link:</p>
+      <p><code id="linkText"></code></p>
+      <p class="muted">You can also copy the link and open it in Safari.</p>
+    </div>
+  </div>
 
   <script>
-    const params = window.location.search || "";
-    const deepLink = "skypad://oauth/callback" + params;
+    (function () {
+      // Preserve full query + fragment
+      const query = window.location.search || "";
+      const hash = window.location.hash || "";
+      const deepLink = "skypad://oauth/callback" + query + hash;
 
-    // iOS app'e geri dön
-    window.location.replace(deepLink);
+      // Expose for fallback UI
+      const fallback = document.getElementById("fallback");
+      const openBtn = document.getElementById("openBtn");
+      const linkText = document.getElementById("linkText");
+      openBtn.href = deepLink;
+      linkText.textContent = deepLink;
 
-    // Fallback
-    setTimeout(() => {
-      document.body.innerHTML =
-        "<h3>Return to SkyPad</h3>" +
-        "<p>If the app did not open automatically, please return to SkyPad.</p>";
-    }, 1200);
+      // iOS Safari sometimes blocks immediate redirects; do a short delay
+      // then try two methods.
+      setTimeout(() => {
+        try { window.location.href = deepLink; } catch(e) {}
+        try { window.location.replace(deepLink); } catch(e) {}
+      }, 120);
+
+      // Show fallback UI if app didn't open
+      setTimeout(() => {
+        fallback.style.display = "block";
+      }, 900);
+    })();
   </script>
 </body>
 </html>
