@@ -1,22 +1,25 @@
 {
   "client_id": "https://originalgenlabs-max.github.io/skypad-oauth/oauth/client-metadata.json",
+  "application_type": "native",
   "client_name": "SkyPad",
-  "client_uri": "https://originalgenlabs-max.github.io/skypad-oauth/",
-  "logo_uri": "https://originalgenlabs-max.github.io/skypad-oauth/assets/logo.png",
-  "tos_uri": "https://originalgenlabs-max.github.io/skypad-oauth/terms.html",
-  "policy_uri": "https://originalgenlabs-max.github.io/skypad-oauth/privacy.html",
   "redirect_uris": [
-    "https://originalgenlabs-max.github.io/skypad-oauth/oauth/callback/"
+    "https://originalgenlabs-max.github.io/skypad-oauth/oauth/callback/",
+    "skypad://oauth/callback"
   ],
-  "grant_types": [
-    "authorization_code",
-    "refresh_token"
-  ],
-  "response_types": [
-    "code"
-  ],
+  "response_types": ["code"],
+  "grant_types": ["authorization_code", "refresh_token"],
   "token_endpoint_auth_method": "none",
-  "application_type": "web",
-  "scope": "atproto transition:generic rpc:chat.bsky.convo.listConvos?aud=did:web:api.bsky.chat rpc:chat.bsky.convo.getConvoForMembers?aud=did:web:api.bsky.chat rpc:chat.bsky.convo.getMessages?aud=did:web:api.bsky.chat rpc:chat.bsky.convo.sendMessage?aud=did:web:api.bsky.chat rpc:chat.bsky.convo.updateRead?aud=did:web:api.bsky.chat rpc:chat.bsky.convo.updateAllRead?aud=did:web:api.bsky.chat",
-  "dpop_bound_access_tokens": true
+
+  "scope": "atproto transition:generic \
+rpc:chat.bsky.convo.listConvos?aud=did:web:api.bsky.chat \
+rpc:chat.bsky.convo.getConvoForMembers?aud=did:web:api.bsky.chat \
+rpc:chat.bsky.convo.getMessages?aud=did:web:api.bsky.chat \
+rpc:chat.bsky.convo.sendMessage?aud=did:web:api.bsky.chat \
+rpc:chat.bsky.convo.updateRead?aud=did:web:api.bsky.chat \
+rpc:chat.bsky.convo.updateAllRead?aud=did:web:api.bsky.chat",
+
+  "dpop_bound_access_tokens": true,
+
+  "jwks_uri": null,
+  "contacts": ["mailto:originalgenlabs@gmail.com"]
 }
