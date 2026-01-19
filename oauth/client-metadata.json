@@ -1,25 +1,13 @@
 {
-  "client_id": "https://skypad.app/oauth/client-metadata.json",
+  "client_id": "https://originalgenlabs-max.github.io/skypad-oauth/oauth/client-metadata.json",
   "client_name": "SkyPad",
-  "client_uri": "https://skypad.app",
-  "logo_uri": "https://skypad.app/logo.png",
-
   "redirect_uris": [
-    "skypad://oauth/callback"
+    "https://originalgenlabs-max.github.io/skypad-oauth/oauth/callback/"
   ],
-
-  "grant_types": [
-    "authorization_code",
-    "refresh_token"
-  ],
-
-  "response_types": [
-    "code"
-  ],
-
+  "response_types": ["code"],
+  "grant_types": ["authorization_code", "refresh_token"],
   "token_endpoint_auth_method": "none",
-
-  "scope": "atproto transition:generic",
-
-  "application_type": "native"
+  "application_type": "native",
+  "scope": "atproto transition:generic transition:chat.bsky",
+  "dpop_bound_access_tokens": true
 }
