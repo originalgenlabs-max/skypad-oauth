@@ -5,51 +5,200 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SkyPad OAuth Callback</title>
   <style>
-    body { font-family: -apple-system, system-ui, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; line-height: 1.4; }
-    .box { max-width: 720px; margin: 0 auto; }
-    code { background: #f2f2f2; padding: 2px 6px; border-radius: 6px; word-break: break-all; }
-    a.button { display: inline-block; margin-top: 12px; padding: 12px 14px; border-radius: 10px; background: #111; color: #fff; text-decoration: none; }
-    .muted { color: #666; font-size: 14px; }
+    :root{
+      --bg:#070708;
+      --card: rgba(255,255,255,0.06);
+      --stroke: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.55);
+      --accent:#ff9500;
+      --accent2: rgba(255,149,0,0.18);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(800px 400px at 50% 10%, rgba(255,149,0,0.20), transparent 60%),
+        linear-gradient(180deg, #060607, #0b0b0d);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    }
+    .wrap{
+      width:min(560px, 92vw);
+      padding:18px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:22px;
+      padding:22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:14px;
+    }
+    .logo{
+      width:44px;height:44px;
+      border-radius:14px;
+      background: linear-gradient(180deg, rgba(255,149,0,0.30), rgba(255,149,0,0.10));
+      border:1px solid rgba(255,149,0,0.35);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 10px 30px rgba(255,149,0,0.15);
+    }
+    .logo span{font-size:22px}
+    h1{
+      margin:0;
+      font-size:20px;
+      letter-spacing:0.2px;
+    }
+    .sub{
+      margin:4px 0 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.10);
+      margin-top:14px;
+      width:100%;
+      overflow:hidden;
+    }
+    code{
+      color:rgba(255,255,255,0.88);
+      font-size:12px;
+      white-space:nowrap;
+      overflow:auto;
+    }
+    .actions{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+    button,a.btn{
+      appearance:none;
+      border:none;
+      border-radius:14px;
+      padding:12px 14px;
+      font-weight:700;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+    .primary{
+      background: var(--accent);
+      color:#111;
+      flex:1;
+      min-width:180px;
+      box-shadow: 0 12px 30px rgba(255,149,0,0.18);
+    }
+    .secondary{
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.90);
+      flex:1;
+      min-width:180px;
+    }
+    .hint{
+      margin-top:12px;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.45;
+    }
+    .status{
+      margin-top:10px;
+      font-size:12px;
+      color: rgba(255,255,255,0.72);
+    }
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px var(--accent2);
+    }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h3>Returning to SkyPad…</h3>
-    <p class="muted">If nothing happens, use the button below.</p>
+  <div class="wrap">
+    <div class="card">
+      <div class="brand">
+        <div class="logo"><span>🧭</span></div>
+        <div>
+          <h1>Returning to SkyPad…</h1>
+          <p class="sub">If nothing happens, use the buttons below.</p>
+        </div>
+      </div>
 
-    <div id="fallback" style="display:none;">
-      <p><a id="openBtn" class="button" href="#">Open SkyPad</a></p>
-      <p class="muted">Deep link:</p>
-      <p><code id="linkText"></code></p>
-      <p class="muted">You can also copy the link and open it in Safari.</p>
+      <div class="pill">
+        <div class="dot"></div>
+        <code id="deeplink"></code>
+      </div>
+
+      <div class="actions">
+        <a class="btn primary" id="openBtn" href="#">Open SkyPad</a>
+        <button class="secondary" id="copyBtn" type="button">Copy Link</button>
+      </div>
+
+      <div class="status" id="status"></div>
+
+      <p class="hint">
+        iOS may keep the browser tab open after redirect. That’s normal. You can close it after SkyPad opens.
+      </p>
     </div>
   </div>
 
   <script>
-    (function () {
-      // Preserve full query + fragment
-      const query = window.location.search || "";
-      const hash = window.location.hash || "";
-      const deepLink = "skypad://oauth/callback" + query + hash;
+    (function() {
+      const params = window.location.search || "";
+      const deepLink = "skypad://oauth/callback" + params;
 
-      // Expose for fallback UI
-      const fallback = document.getElementById("fallback");
+      const dlEl = document.getElementById("deeplink");
       const openBtn = document.getElementById("openBtn");
-      const linkText = document.getElementById("linkText");
-      openBtn.href = deepLink;
-      linkText.textContent = deepLink;
+      const copyBtn = document.getElementById("copyBtn");
+      const statusEl = document.getElementById("status");
 
-      // iOS Safari sometimes blocks immediate redirects; do a short delay
-      // then try two methods.
-      setTimeout(() => {
-        try { window.location.href = deepLink; } catch(e) {}
-        try { window.location.replace(deepLink); } catch(e) {}
-      }, 120);
+      dlEl.textContent = deepLink;
+      openBtn.setAttribute("href", deepLink);
 
-      // Show fallback UI if app didn't open
-      setTimeout(() => {
-        fallback.style.display = "block";
-      }, 900);
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(deepLink);
+          statusEl.textContent = "Copied.";
+          setTimeout(() => statusEl.textContent = "", 1200);
+        } catch (e) {
+          statusEl.textContent = "Copy failed. Long-press the link to copy.";
+        }
+      });
+
+      // Prevent double-redirect loops within the same tab/session
+      const key = "skypad_redirected_once";
+      const already = sessionStorage.getItem(key) === "1";
+      if (!already) {
+        sessionStorage.setItem(key, "1");
+        // Use replace to avoid back-stack pollution
+        window.location.replace(deepLink);
+      } else {
+        statusEl.textContent = "Tap “Open SkyPad” if the app did not open automatically.";
+      }
     })();
   </script>
 </body>
