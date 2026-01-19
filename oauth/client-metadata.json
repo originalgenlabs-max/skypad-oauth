@@ -1,17 +1,22 @@
 {
   "client_id": "https://originalgenlabs-max.github.io/skypad-oauth/oauth/client-metadata.json",
-  "application_type": "native",
   "client_name": "SkyPad",
   "client_uri": "https://originalgenlabs-max.github.io/skypad-oauth/",
-  "dpop_bound_access_tokens": true,
+  "logo_uri": "https://originalgenlabs-max.github.io/skypad-oauth/assets/logo.png",
+  "tos_uri": "https://originalgenlabs-max.github.io/skypad-oauth/terms.html",
+  "policy_uri": "https://originalgenlabs-max.github.io/skypad-oauth/privacy.html",
+  "redirect_uris": [
+    "https://originalgenlabs-max.github.io/skypad-oauth/oauth/callback/"
+  ],
   "grant_types": [
     "authorization_code",
     "refresh_token"
   ],
- "redirect_uris": ["https://originalgenlabs-max.github.io/skypad-oauth/oauth/callback/"],
   "response_types": [
     "code"
   ],
-  "scope": "atproto transition:generic transition:chat.bsky",
-  "token_endpoint_auth_method": "none"
+  "token_endpoint_auth_method": "none",
+  "application_type": "web",
+  "scope": "atproto transition:generic rpc:chat.bsky.convo.listConvos?aud=did:web:api.bsky.chat rpc:chat.bsky.convo.getConvoForMembers?aud=did:web:api.bsky.chat rpc:chat.bsky.convo.getMessages?aud=did:web:api.bsky.chat rpc:chat.bsky.convo.sendMessage?aud=did:web:api.bsky.chat rpc:chat.bsky.convo.updateRead?aud=did:web:api.bsky.chat rpc:chat.bsky.convo.updateAllRead?aud=did:web:api.bsky.chat",
+  "dpop_bound_access_tokens": true
 }
