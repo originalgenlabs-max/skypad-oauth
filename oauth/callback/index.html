@@ -48,6 +48,7 @@ body{
 
 .wrap{
   width:min(560px,100%);
+  margin:0 auto;
 }
 
 .card{
@@ -57,6 +58,7 @@ body{
   padding:30px 26px 24px;
   box-shadow:var(--shadow);
   backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
   text-align:center;
 }
 
@@ -73,6 +75,8 @@ body{
 .logo{
   width:52px;
   height:52px;
+  display:block;
+  object-fit:contain;
 }
 
 .orbit{
@@ -100,12 +104,14 @@ body{
   margin:8px 0 0;
   font-size:22px;
   font-weight:800;
+  letter-spacing:-0.01em;
 }
 
 .sub{
   margin:10px auto 0;
   max-width:420px;
   font-size:14px;
+  line-height:1.5;
   color:var(--muted);
 }
 
@@ -139,6 +145,12 @@ a.btn{
   align-items:center;
   justify-content:center;
   gap:8px;
+  transition:transform .16s ease, opacity .16s ease, box-shadow .16s ease;
+}
+
+button:hover,
+a.btn:hover{
+  transform:translateY(-1px);
 }
 
 .primary{
@@ -172,21 +184,75 @@ summary{
   list-style:none;
 }
 
+summary::-webkit-details-marker{
+  display:none;
+}
+
 .linkWrap{
   margin-top:10px;
+  overflow:hidden;
 }
 
 code{
   display:block;
   font-size:12px;
+  line-height:1.45;
   white-space:nowrap;
   overflow:auto hidden;
+  scrollbar-width:thin;
 }
 
 .hint{
   margin:16px 0 0;
   font-size:12px;
+  line-height:1.5;
   color:var(--muted);
+}
+
+/* iPhone */
+
+@media (max-width:640px){
+
+  .card{
+    padding:24px 18px 20px;
+    border-radius:24px;
+  }
+
+  .brand{
+    font-size:28px;
+  }
+
+  .headline{
+    font-size:19px;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .primary,
+  .secondary{
+    width:100%;
+    min-width:0;
+  }
+}
+
+/* Large iPad */
+
+@media (min-width:900px){
+
+  .card{
+    padding:34px 30px 26px;
+  }
+
+  .brand{
+    font-size:32px;
+  }
+
+  .headline{
+    font-size:24px;
+  }
+
 }
 
 </style>
@@ -201,7 +267,11 @@ code{
 <div class="logoWrap">
 <div class="orbit"></div>
 
-<img src="skypad-logo.png" class="logo" alt="SkyPad Logo">
+<img src="skypad-logo.png"
+     class="logo"
+     alt="SkyPad Logo"
+     width="52"
+     height="52">
 
 </div>
 
@@ -256,10 +326,14 @@ copyBtn.addEventListener("click", async () => {
 try{
 await navigator.clipboard.writeText(deepLink);
 statusEl.textContent = "Link copied.";
-setTimeout(()=>{statusEl.textContent="Tap 'Open SkyPad' if the app did not reopen automatically.";},1400);
+setTimeout(()=>{
+statusEl.textContent =
+"Tap 'Open SkyPad' if the app did not reopen automatically.";
+},1400);
 }
 catch(e){
-statusEl.textContent = "Copy failed. Long press the link to copy it manually.";
+statusEl.textContent =
+"Copy failed. Long press the link to copy it manually.";
 }
 
 });
@@ -272,7 +346,8 @@ sessionStorage.setItem(key,"1");
 window.location.replace(deepLink);
 }
 else{
-statusEl.textContent = "Tap 'Open SkyPad' if the app did not reopen automatically.";
+statusEl.textContent =
+"Tap 'Open SkyPad' if the app did not reopen automatically.";
 }
 
 })();
