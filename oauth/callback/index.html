@@ -1,359 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Opening SkyPad…</title>
-  <style>
-    :root{
-      --bg1:#eef6ff;
-      --bg2:#e6f1ff;
-      --bg3:#fbfdff;
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Opening SkyPad…</title>
 
-      --card:rgba(255,255,255,0.76);
-      --stroke:rgba(255,255,255,0.78);
+<style>
 
-      --text:#162033;
-      --muted:#5e6b81;
+:root{
+  --sky:#5EC8FF;
+  --sky2:#1F5BFF;
 
-      --sky:#4b84ff;
-      --sky2:#2f63ea;
-      --gold:#f3be57;
-      --mint:#76d7d0;
+  --bg1:#eef6ff;
+  --bg2:#e6f1ff;
+  --bg3:#fbfdff;
 
-      --shadow:0 24px 70px rgba(52,84,140,0.16);
-    }
+  --card:rgba(255,255,255,0.76);
+  --stroke:rgba(255,255,255,0.78);
 
-    *{box-sizing:border-box}
+  --text:#162033;
+  --muted:#5e6b81;
 
-    html,body{
-      margin:0;
-      min-height:100%;
-      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(560px 360px at 18% 10%, rgba(75,132,255,0.18), transparent 60%),
-        radial-gradient(640px 420px at 82% 78%, rgba(118,215,208,0.14), transparent 60%),
-        radial-gradient(260px 220px at 72% 14%, rgba(243,190,87,0.12), transparent 60%),
-        linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
-    }
+  --shadow:0 24px 70px rgba(52,84,140,0.16);
+}
 
-    body{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      overflow:hidden;
-    }
+*{box-sizing:border-box}
 
-    .stars{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.55;
-    }
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--text);
 
-    .stars i{
-      position:absolute;
-      width:2px;
-      height:2px;
-      border-radius:50%;
-      background:rgba(255,255,255,0.88);
-      box-shadow:0 0 0 3px rgba(255,255,255,0.08);
-    }
+  background:
+  radial-gradient(560px 360px at 18% 10%, rgba(31,91,255,0.18), transparent 60%),
+  radial-gradient(640px 420px at 82% 78%, rgba(94,200,255,0.16), transparent 60%),
+  linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+}
 
-    .wrap{
-      width:min(560px, 100%);
-      position:relative;
-      z-index:1;
-    }
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
 
-    .halo{
-      position:absolute;
-      inset:auto 0 6% 0;
-      margin:auto;
-      width:360px;
-      height:360px;
-      border-radius:50%;
-      background:radial-gradient(circle at center, rgba(75,132,255,0.20), transparent 56%);
-      filter:blur(18px);
-      pointer-events:none;
-    }
+.wrap{
+  width:min(560px,100%);
+}
 
-    .card{
-      position:relative;
-      z-index:1;
-      background:var(--card);
-      border:1px solid var(--stroke);
-      border-radius:30px;
-      padding:28px 24px 22px;
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      text-align:center;
-    }
+.card{
+  background:var(--card);
+  border:1px solid var(--stroke);
+  border-radius:30px;
+  padding:30px 26px 24px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(18px);
+  text-align:center;
+}
 
-    .mark{
-      position:relative;
-      width:92px;
-      height:92px;
-      margin:0 auto 16px;
-      border-radius:50%;
-      background:rgba(255,255,255,0.56);
-      border:1px solid rgba(255,255,255,0.68);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 16px 40px rgba(75,132,255,0.14);
-      overflow:hidden;
-    }
+.logoWrap{
+  position:relative;
+  width:92px;
+  height:92px;
+  margin:0 auto 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    .mark::before{
-      content:"";
-      position:absolute;
-      inset:16px;
-      border-radius:50%;
-      border:2px solid rgba(243,190,87,0.48);
-    }
+.logo{
+  width:52px;
+  height:52px;
+}
 
-    .mark::after{
-      content:"";
-      position:absolute;
-      inset:10px;
-      border-radius:50%;
-      background:radial-gradient(circle at center, rgba(75,132,255,0.22), transparent 62%);
-    }
+.orbit{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:3px solid transparent;
+  border-top-color:var(--sky2);
+  border-right-color:var(--sky);
+  animation:spin 1.15s linear infinite;
+}
 
-    .mark span{
-      position:relative;
-      z-index:1;
-      font-size:34px;
-      line-height:1;
-    }
+@keyframes spin{
+  to{ transform:rotate(360deg); }
+}
 
-    .orbit{
-      position:absolute;
-      inset:9px;
-      border-radius:50%;
-      border:3px solid transparent;
-      border-top-color:var(--sky);
-      border-right-color:var(--gold);
-      animation:spin 1.15s linear infinite;
-    }
+.brand{
+  margin:0;
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:.22em;
+}
 
-    @keyframes spin{
-      to{ transform:rotate(360deg); }
-    }
+.headline{
+  margin:8px 0 0;
+  font-size:22px;
+  font-weight:800;
+}
 
-    .brand{
-      margin:0;
-      font-size:31px;
-      font-weight:900;
-      letter-spacing:.22em;
-    }
+.sub{
+  margin:10px auto 0;
+  max-width:420px;
+  font-size:14px;
+  color:var(--muted);
+}
 
-    .headline{
-      margin:8px 0 0;
-      font-size:22px;
-      font-weight:800;
-      letter-spacing:-0.02em;
-    }
+.status{
+  margin:16px 0 0;
+  font-size:13px;
+  font-weight:700;
+  color:var(--sky2);
+  min-height:18px;
+}
 
-    .sub{
-      margin:10px auto 0;
-      max-width:420px;
-      font-size:14px;
-      line-height:1.5;
-      color:var(--muted);
-    }
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
 
-    .status{
-      margin:16px 0 0;
-      font-size:13px;
-      font-weight:700;
-      color:var(--sky2);
-      min-height:18px;
-    }
+button,
+a.btn{
+  appearance:none;
+  border:none;
+  border-radius:18px;
+  padding:14px 16px;
+  font-weight:800;
+  font-size:14px;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
 
-    .actions{
-      display:flex;
-      gap:12px;
-      margin-top:20px;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
+.primary{
+  min-width:220px;
+  color:#fff;
+  background:linear-gradient(90deg,var(--sky2),var(--sky));
+  box-shadow:0 14px 34px rgba(31,91,255,0.22);
+}
 
-    button,
-    a.btn{
-      appearance:none;
-      border:none;
-      border-radius:18px;
-      padding:14px 16px;
-      font-weight:800;
-      font-size:14px;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      transition:transform .16s ease, opacity .16s ease;
-    }
+.secondary{
+  min-width:150px;
+  color:var(--text);
+  background:rgba(255,255,255,0.62);
+  border:1px solid rgba(255,255,255,0.82);
+}
 
-    button:hover,
-    a.btn:hover{
-      transform:translateY(-1px);
-    }
+details{
+  margin-top:18px;
+  text-align:left;
+  background:rgba(255,255,255,0.48);
+  border:1px solid rgba(255,255,255,0.74);
+  border-radius:16px;
+  padding:12px 14px;
+}
 
-    .primary{
-      min-width:220px;
-      color:#fff;
-      background:linear-gradient(90deg, var(--sky2), var(--sky), var(--gold));
-      box-shadow:0 14px 34px rgba(75,132,255,0.22);
-    }
+summary{
+  cursor:pointer;
+  font-size:12px;
+  font-weight:800;
+  color:var(--muted);
+  list-style:none;
+}
 
-    .secondary{
-      min-width:150px;
-      color:var(--text);
-      background:rgba(255,255,255,0.62);
-      border:1px solid rgba(255,255,255,0.82);
-    }
+.linkWrap{
+  margin-top:10px;
+}
 
-    details{
-      margin-top:18px;
-      text-align:left;
-      background:rgba(255,255,255,0.48);
-      border:1px solid rgba(255,255,255,0.74);
-      border-radius:16px;
-      padding:12px 14px;
-    }
+code{
+  display:block;
+  font-size:12px;
+  white-space:nowrap;
+  overflow:auto hidden;
+}
 
-    summary{
-      cursor:pointer;
-      font-size:12px;
-      font-weight:800;
-      color:var(--muted);
-      list-style:none;
-    }
+.hint{
+  margin:16px 0 0;
+  font-size:12px;
+  color:var(--muted);
+}
 
-    summary::-webkit-details-marker{
-      display:none;
-    }
-
-    .linkWrap{
-      margin-top:10px;
-      overflow:hidden;
-    }
-
-    code{
-      display:block;
-      color:rgba(22,32,51,0.88);
-      font-size:12px;
-      line-height:1.45;
-      white-space:nowrap;
-      overflow:auto hidden;
-      scrollbar-width:thin;
-    }
-
-    .hint{
-      margin:16px 0 0;
-      font-size:12px;
-      color:var(--muted);
-      line-height:1.5;
-    }
-
-    @media (max-width:640px){
-      .card{ padding:24px 18px 20px; border-radius:24px; }
-      .brand{ font-size:28px; }
-      .headline{ font-size:19px; }
-      .actions{ flex-direction:column; }
-      .primary,.secondary{ width:100%; min-width:0; }
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="stars" aria-hidden="true">
-    <i style="left:14%;top:18%"></i>
-    <i style="left:22%;top:26%"></i>
-    <i style="left:78%;top:20%"></i>
-    <i style="left:86%;top:34%"></i>
-    <i style="left:68%;top:74%"></i>
-    <i style="left:28%;top:82%"></i>
-    <i style="left:52%;top:10%"></i>
-    <i style="left:60%;top:86%"></i>
-  </div>
 
-  <div class="wrap">
-    <div class="halo"></div>
+<div class="wrap">
 
-    <div class="card">
-      <div class="mark">
-        <div class="orbit"></div>
-        <span>🧭</span>
-      </div>
+<div class="card">
 
-      <h1 class="brand">SKYPAD</h1>
-      <p class="headline">Opening SkyPad…</p>
-      <p class="sub">
-        Authorization is complete. We’re handing you back to the app now.
-      </p>
+<div class="logoWrap">
+<div class="orbit"></div>
 
-      <div class="status" id="status">Attempting automatic handoff…</div>
+<img src="skypad-logo.png" class="logo" alt="SkyPad Logo">
 
-      <div class="actions">
-        <a class="btn primary" id="openBtn" href="#">Open SkyPad</a>
-        <button class="secondary" id="copyBtn" type="button">Copy Link</button>
-      </div>
+</div>
 
-      <details>
-        <summary>Show technical link</summary>
-        <div class="linkWrap">
-          <code id="deeplink"></code>
-        </div>
-      </details>
+<h1 class="brand">SKYPAD</h1>
 
-      <p class="hint">
-        If SkyPad does not reopen automatically, tap “Open SkyPad”.
-      </p>
-    </div>
-  </div>
+<p class="headline">Opening SkyPad…</p>
 
-  <script>
-    (function() {
-      const params = window.location.search || "";
-      const deepLink = "skypad://oauth/callback" + params;
+<p class="sub">
+Authorization is complete. Returning you to the app.
+</p>
 
-      const dlEl = document.getElementById("deeplink");
-      const openBtn = document.getElementById("openBtn");
-      const copyBtn = document.getElementById("copyBtn");
-      const statusEl = document.getElementById("status");
+<div class="status" id="status">
+Attempting automatic handoff…
+</div>
 
-      dlEl.textContent = deepLink;
-      openBtn.setAttribute("href", deepLink);
+<div class="actions">
+<a class="btn primary" id="openBtn" href="#">Open SkyPad</a>
+<button class="secondary" id="copyBtn" type="button">Copy Link</button>
+</div>
 
-      copyBtn.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(deepLink);
-          statusEl.textContent = "Link copied.";
-          setTimeout(() => {
-            statusEl.textContent = "Tap “Open SkyPad” if the app did not reopen automatically.";
-          }, 1400);
-        } catch (e) {
-          statusEl.textContent = "Copy failed. Long-press the link to copy it manually.";
-        }
-      });
+<details>
+<summary>Show technical link</summary>
+<div class="linkWrap">
+<code id="deeplink"></code>
+</div>
+</details>
 
-      const key = "skypad_redirected_once";
-      const already = sessionStorage.getItem(key) === "1";
+<p class="hint">
+If SkyPad does not reopen automatically, tap “Open SkyPad”.
+</p>
 
-      if (!already) {
-        sessionStorage.setItem(key, "1");
-        window.location.replace(deepLink);
-      } else {
-        statusEl.textContent = "Tap “Open SkyPad” if the app did not reopen automatically.";
-      }
-    })();
-  </script>
+</div>
+</div>
+
+<script>
+
+(function() {
+
+const params = window.location.search || "";
+const deepLink = "skypad://oauth/callback" + params;
+
+const dlEl = document.getElementById("deeplink");
+const openBtn = document.getElementById("openBtn");
+const copyBtn = document.getElementById("copyBtn");
+const statusEl = document.getElementById("status");
+
+dlEl.textContent = deepLink;
+openBtn.setAttribute("href", deepLink);
+
+copyBtn.addEventListener("click", async () => {
+
+try{
+await navigator.clipboard.writeText(deepLink);
+statusEl.textContent = "Link copied.";
+setTimeout(()=>{statusEl.textContent="Tap 'Open SkyPad' if the app did not reopen automatically.";},1400);
+}
+catch(e){
+statusEl.textContent = "Copy failed. Long press the link to copy it manually.";
+}
+
+});
+
+const key = "skypad_redirected_once";
+const already = sessionStorage.getItem(key) === "1";
+
+if(!already){
+sessionStorage.setItem(key,"1");
+window.location.replace(deepLink);
+}
+else{
+statusEl.textContent = "Tap 'Open SkyPad' if the app did not reopen automatically.";
+}
+
+})();
+
+</script>
+
 </body>
 </html>
